@@ -142,11 +142,11 @@ button:hover {
 }
 
 .cart {
-    width: 65%; /* Cambiado de 68% a 65% */
+    width: 55%; 
 }
 
 .last-purchase {
-    width: 33%; /* Cambiado de 28% a 33% */
+    width: 43%; 
 }
 
 .floating-menu {

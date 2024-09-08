@@ -1,59 +1,20 @@
-const meatItems = [
-    {
-        id: 1,
-        name: "Bife ancho",
-        description: "No vas a quedar mal con esto",
-        image: "./img/bifea.jpg",
-        price: 22.49,
-        quantity: 20
-    },
-    {
-        id: 2,
-        name: "Chinchulines",
-        description: "No los quemes, fuego alto pero no tanto",
-        image: "./img/chinchu.jpg",
-        price: 7.49,
-        quantity: 50
-    },
-    {
-        id: 3,
-        name: "Entraña",
-        description: "Sal y a fuego medio, no podés quedar mal",
-        image: "./img/entrana.jpg",
-        price: 8.99,
-        quantity: 30
-    },
-    {
-        id: 4,
-        name: "Mollejas",
-        description: "No las de cogote, las del bobo que no te hacen quedar mal",
-        image: "./img/molleja.webp",
-        price: 10.49,
-        quantity: 25
-    },
-    {
-        id: 5,
-        name: "Pechugas de pollo",
-        description: "De campo, sin hormonas ni esas cosas raras",
-        image: "./img/pechugapollo.webp",
-        price: 29.99,
-        quantity: 15
-    },
-    {
-        id: 6,
-        name: "T-bone",
-        description: "Para el porteño que dice que sabe hacer asado",
-        image: "./img/tbone.webp",
-        price: 47.99,
-        quantity: 29
-    }
-];
-
+let meatItems = [];
 let cart = [];
 let lastPurchase = null;
 let floatingMenu;
 let cartSection;
 let isFloatingMenuExpanded = false;
+
+// Carga los productos desde el archivo JSON e inicializa la tienda
+function loadProductsAndInitialize() {
+    fetch('products.json')
+        .then(response => response.json())
+        .then(data => {
+            meatItems = data;
+            initializeShop();
+        })
+        .catch(error => console.error('Error cargando productos:', error));
+}
 
 // Inicializa la tienda, carga los productos y configura los eventos
 function initializeShop() {
@@ -191,7 +152,7 @@ function updateCartDisplay() {
     document.getElementById('cart-total').textContent = total.toFixed(2);
     document.getElementById('floating-cart-total').textContent = total.toFixed(2);
 
-    // Actualizar visibilidad del menú flotante
+    // Actualiza la visibilidad del menú flotante
     const floatingMenu = document.getElementById('floating-menu');
     if (cart.length === 0) {
         floatingMenu.classList.add('hidden');
@@ -247,7 +208,7 @@ function purchaseItems() {
 
 // Restablece el carrito y el stock después de una compra
 function resetPurchase() {
-    // Restablecer el stock de los ítems
+    // Restablece el stock de los ítems
     cart.forEach(cartItem => {
         const item = meatItems.find(i => i.id === cartItem.id);
         if (item) {
@@ -256,12 +217,12 @@ function resetPurchase() {
         }
     });
 
-    // Vaciar el carrito
+    // Vacia el carrito
     cart = [];
     updateCartDisplay();
     saveCart();
 
-    // Restablecer los contadores de cantidad en la pantalla
+    // Restablece los contadores de cantidad en la pantalla
     meatItems.forEach(item => {
         const quantityElement = document.getElementById(`quantity-${item.id}`);
         if (quantityElement) {
@@ -443,4 +404,4 @@ function scrollToTop() {
 }
 
 // Inicializa la tienda cuando se carga la página
-window.onload = initializeShop;
+window.onload = loadProductsAndInitialize;
