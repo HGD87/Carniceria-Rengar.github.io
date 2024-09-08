@@ -1,21 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnicería Rengar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-      <body>
-      <div class="container">
-        <h1>Carnicería Rengar</h1>
-        <div id="items-container"></div>
-        <div class="cart">
-            <h2>Shopping Cart</h2>
-            <div id="cart-items"></div>
-            <p>Total: $<span id="cart-total">0.00</span></p>
-            <button onclick="purchaseItems()">Purchase Items</button>
+<body>
+    <div class="video-background">
+        <video autoplay loop muted>
+            <source src="https://videos.pexels.com/video-files/6093233/6093233-hd_1280_720_24fps.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+    <div id="floating-menu" class="floating-menu contracted">
+        <div id="floating-menu-content">
+            <h3>Carrito de Compras</h3>
+            <div id="floating-cart-items"></div>
+            <p>Total: $<span id="floating-cart-total">0.00</span></p>
+            <button onclick="scrollToCart()">Completar compra</button>
+            <button onclick="clearCart()" class="clear-cart-btn">Vaciar Carrito</button>
+            <button onclick="toggleFloatingMenu()" class="contract-btn">Contraer</button>
         </div>
-    </div>      
-        <script src="main.js"></script>
-      </body> 
+        <button id="expand-btn" onclick="toggleFloatingMenu()">Ver compra</button>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <h1 class="text-center">Carnicería Rengar</h1>
+            <div id="items-container" class="row"></div>
+            <div class="cart-and-last-purchase row">
+                <div class="cart col-md-8">
+                    <h2>Carrito de Compras</h2>
+                    <div id="cart-items"></div>
+                    <p>Total: $<span id="cart-total">0.00</span></p>
+                    <div class="customer-info">
+                        <input type="text" id="full-name" placeholder="Nombre completo">
+                        <input type="tel" id="phone" placeholder="Teléfono">
+                        <input type="text" id="address" placeholder="Domicilio">
+                    </div>
+                    <div class="cart-buttons">
+                        <button onclick="purchaseItems()">Comprar</button>
+                        <button onclick="clearCart()" class="clear-cart-btn">Vaciar Carrito</button>
+                    </div>
+                </div>
+                <div class="last-purchase col-md-4">
+                    <h2>Última Compra</h2>
+                    <div id="last-purchase"></div>
+                    <button onclick="repeatLastPurchase()">Repetir Última Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
